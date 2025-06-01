@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <title>🎵 Mezelf Kwijt – Javien</title>
+  <style>
+    body {
+      background: #0e0e0e;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .lyric-display {
+      width: 100%;
+      height: 60px;
+      background: #111;
+      overflow: hidden;
+      border-top: 1px solid #444;
+      border-bottom: 1px solid #444;
+      position: relative;
+    }
+    .lyric-text {
+      position: absolute;
+      white-space: nowrap;
+      font-size: 1.5rem;
+      padding-left: 100%;
+      animation: scroll-text 12s linear infinite;
+    }
+    @keyframes scroll-text {
+      from {
+        left: 100%;
+      }
+      to {
+        left: -100%;
+      }
+    }
+    audio {
+      margin-top: 20px;
+    }
+    button {
+      margin-top: 20px;
+      background: #1db954;
+      color: white;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="lyric-display">
+    <div class="lyric-text" id="lyric">Druk op play om te starten...</div>
+  </div>
+
+  <audio id="audio" controls>
+    <source src="mezelf-kwijt.mp3" type="audio/mpeg">
+    Jouw browser ondersteunt deze audio niet.
+  </audio>
+
+  <button onclick="startPlayback()">▶ Start Song & Tekst</button>
+
+  <script>
+    const lyrics = [
+      { time: 0, text: "Ik zie mezelf in de spiegel, maar ik ken die jongen niet" },
+      { time: 5, text: "Elke nacht te veel gedachten, hoofd vol dynamiet" },
+      { time: 10, text: "Zeg me wie ik ben, want ik ben mezelf kwijt" },
+      { time: 14, text: "En alles wat ik voel, voelt niet meer als waarheid" },
+
+      { time: 20, text: "Mama zei me altijd: 'Je moet rustig aan doen'" },
+      { time: 25, text: "Maar m’n hart rent sneller dan ik soms kan volgen" },
+      { time: 30, text: "Blijven rennen, blijf maar pushen tot ik breek" },
+      { time: 34, text: "Wie ben ik nog als niemand me echt ziet?" },
+
+      { time: 40, text: "Ik ben mezelf kwijt," },
+      { time: 43, text: "Ik voel me leeg vanbinnen" },
+      { time: 46, text: "Niemand ziet m’n pijn" },
+      { time: 49, text: "Maar ik blijf doorgaan — al is het zinloos soms" },
+      { time: 54, text: "Ik ben mezelf kwijt..." },
+      { time: 58, text: "Zeg me waar ik hoor" },
+
+      { time: 65, text: "Avonden koud, dromen die ik had zijn weg" },
+      { time: 69, text: "Ik speel sterk maar vanbinnen ben ik echt gebroken" },
+      { time: 74, text: "Ik zoek naar licht, maar ik zwem in m’n hoofd" },
+      { time: 79, text: "Laat me vallen — of vang je me op?" },
+
+      { time: 85, text: "Ik ben mezelf kwijt," },
+      { time: 88, text: "Ik voel me leeg vanbinnen" },
+      { time: 91, text: "Niemand ziet m’n pijn" },
+      { time: 94, text: "Maar ik blijf doorgaan — al is het zinloos soms" },
+      { time: 99, text: "Ik ben mezelf kwijt..." },
+      { time: 103, text: "Zeg me waar ik hoor" },
+    ];
+
+    const audio = document.getElementById("audio");
+    const lyricDiv = document.getElementById("lyric");
+
+    function startPlayback() {
+      audio.play();
+      let currentIndex = 0;
+      const interval = setInterval(() => {
+        if (currentIndex >= lyrics.length) {
+          clearInterval(interval);
+          return;
+        }
+        if (audio.currentTime >= lyrics[currentIndex].time) {
+          lyricDiv.textContent = lyrics[currentIndex].text;
+          lyricDiv.style.animation = "none";
+          void lyricDiv.offsetWidth;
+          lyricDiv.style.animation = "scroll-text 12s linear infinite";
+          currentIndex++;
+        }
+      }, 300);
+    }
+  </script>
+
+</body>
+</html>
